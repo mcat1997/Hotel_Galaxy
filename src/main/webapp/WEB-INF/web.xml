@@ -25,4 +25,13 @@
         <servlet-name>room_galaxy</servlet-name>
         <url-pattern>/room_galaxy</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>bookRoomServlet_galaxy</servlet-name>
+        <servlet-class>servlet.BookRoomServlet_Galaxy</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>bookRoomServlet_galaxy</servlet-name>
+        <url-pattern>/bookRoomServlet</url-pattern>
+    </servlet-mapping>
 </web-app>

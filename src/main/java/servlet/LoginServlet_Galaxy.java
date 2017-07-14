@@ -18,6 +18,10 @@ public class LoginServlet_Galaxy extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
+
+//        String rnum = req.getParameter("rnum");
+//        System.out.println(rnum);
+
         Admin_Galaxy admin_galaxy=new Admin_Galaxy(username,password);
         AdminDao_Galaxy adminDao_galaxy=new AdminDaoImpl_Galaxy();
         int re = 0;

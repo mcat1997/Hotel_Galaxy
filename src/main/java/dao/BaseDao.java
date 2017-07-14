@@ -7,7 +7,7 @@ import java.sql.*;
  */
 public class BaseDao {
     private String driver = "com.mysql.jdbc.Driver";
-    private String url = "jdbc:mysql://localhost:3306/Hotel_Galaxy?useUnicode=true&characterincoding=UTF-";
+    private String url = "jdbc:mysql://localhost:3306/Hotel_Galaxy?characterEncoding=UTF-8";
     private String user = "root";
     private String password = "385469721";
     private Connection conn = null;
@@ -16,19 +16,20 @@ public class BaseDao {
     }
 
     public Connection getConnection() {
-        if(this.conn == null) {
-            try {
+        try {
+        if(this.conn == null || this.conn.isClosed()) {
                 Class.forName(this.driver);
                 this.conn = DriverManager.getConnection(this.url, this.user, this.password);
-            } catch (Exception var2) {
-                var2.printStackTrace();
-            }
+
+        }
+        } catch (Exception var2) {
+            var2.printStackTrace();
         }
 
         return this.conn;
     }
 
-    public void closeAll(Connection conn, PreparedStatement stmt, ResultSet rs) {
+    public void closeAll(Connection conn, PreparedStatement pstmt, ResultSet rs) {
         if(rs != null) {
             try {
                 rs.close();
@@ -37,9 +38,9 @@ public class BaseDao {
             }
         }
 
-        if(stmt != null) {
+        if(pstmt != null) {
             try {
-                stmt.close();
+                pstmt.close();
             } catch (Exception var6) {
                 var6.printStackTrace();
             }

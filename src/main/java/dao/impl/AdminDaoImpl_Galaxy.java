@@ -18,7 +18,6 @@ public class AdminDaoImpl_Galaxy extends BaseDao implements AdminDao_Galaxy {
         Connection conn = null;
         PreparedStatement stmt =null;
         ResultSet rs = null;
-        Admin_Galaxy admin_galaxy1=null;
         String sql ="select * from admin";
 
         boolean has_username = false;
@@ -26,19 +25,19 @@ public class AdminDaoImpl_Galaxy extends BaseDao implements AdminDao_Galaxy {
 
         try {
             conn=this.getConnection();
-            stmt=conn.prepareStatement(sql);
+            stmt=(PreparedStatement) conn.prepareStatement(sql);
         }catch (SQLException e){
             e.printStackTrace();
         }
 
         try {
-            rs=stmt.getResultSet();
+            rs=stmt.executeQuery();
             while (rs.next()){
                 String temp_username = rs.getString("username").trim();
                 String temp_password = rs.getString("password").trim();
                 if(admin_galaxy.getUsername().equals(temp_username)){
                     has_username=true;
-                    if(admin_galaxy.getPassword().equals(password_correct)){
+                    if(admin_galaxy.getPassword().equals(temp_password)){
                         password_correct=true;
                     }
                 }
@@ -53,10 +52,10 @@ public class AdminDaoImpl_Galaxy extends BaseDao implements AdminDao_Galaxy {
             if(password_correct==true){
                 return 0;
             }else {
-                return 1;
+                return 2;
             }
         }else {
-            return 2;
+            return 1;
         }
 
     }

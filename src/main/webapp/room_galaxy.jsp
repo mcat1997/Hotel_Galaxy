@@ -28,10 +28,50 @@
             <ul class="nav navbar-nav">
                 <li ><a href="/login_galaxy.jsp">登录</a></li>
                 <li class="active"><a href="/room_galaxy">客房管理</a></li>
+                <li><a href="/client_galaxy.jsp">用户信息管理</a> </li>
             </ul>
         </div>
     </div>
 </nav>
+
+<c:if test="${!empty roomList}">
+    <table class="table table-hover">
+        <tr>
+            <td>房间号</td>
+            <td>房间类型</td>
+            <td>房价/天</td>
+            <td>房间状态</td>
+            <td>退/订房</td>
+        </tr>
+        <c:forEach var="room" items="${roomList}">
+            <tr>
+                <td>${room.rnum}</td>
+                <td>${room.rtype}</td>
+                <td>${room.rprice}</td>
+                <td>
+                    <c:if test="${room.rstate==true}">
+                        未订出
+                    </c:if>
+                    <c:if test="${room.rstate==false}">
+                        已订出
+                    </c:if>
+                </td>
+                <td>
+                    <c:if test="${room.rstate==true}">
+                        <button type="button" class="btn btn-primary" onclick="location='bookRoom_Galaxy.jsp'">
+                            订房
+                        </button>
+                    </c:if>
+                    <c:if test="${room.rstate==false}">
+                        <button type="button" class="btn btn-primary">
+                            退房
+                        </button>
+                    </c:if>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
+</c:if>
 
 
 <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>

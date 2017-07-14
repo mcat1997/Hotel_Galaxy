@@ -32,6 +32,7 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/login_galaxy.jsp">登录</a></li>
                 <li><a href="/room_galaxy">客房管理</a></li>
+                <li><a href="/client_galaxy.jsp">用户信息管理</a> </li>
             </ul>
         </div>
     </div>
