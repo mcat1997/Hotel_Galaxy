@@ -120,4 +120,72 @@ public class RoomDaoImpl_Galaxy extends BaseDao implements RoomDao_Galaxy {
 
         return is;
     }
+
+    public void add_Galaxy(Room_Galaxy room_galaxy) throws SQLException {
+        Connection conn = null;
+        PreparedStatement pstmt =null;
+        ResultSet rs = null;
+        String sql ="Insert into room Values(?,?,?,?)";
+
+        try {
+            conn=this.getConnection();
+            pstmt=(PreparedStatement)conn.prepareStatement(sql);
+            pstmt.setString(1,room_galaxy.getRnum());
+            pstmt.setString(2,room_galaxy.getRtype());
+            pstmt.setFloat(3,room_galaxy.getRprice());
+            pstmt.setBoolean(4,room_galaxy.isRstate());
+            pstmt.execute();
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            this.closeAll(conn,pstmt,rs);
+        }
+    }
+
+    public void edit_Galaxy(Room_Galaxy room_galaxy) throws SQLException {
+        Connection conn = null;
+        PreparedStatement pstmt =null;
+        ResultSet rs = null;
+        String sql ="UPDATE room SET rType=? , rPrice=? WHERE rNum=?";
+
+        try {
+            conn=this.getConnection();
+            pstmt=(PreparedStatement)conn.prepareStatement(sql);
+            pstmt.setString(1,room_galaxy.getRtype());
+            pstmt.setFloat(2,room_galaxy.getRprice());
+            pstmt.setString(3,room_galaxy.getRnum());
+            pstmt.executeUpdate();
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            this.closeAll(conn,pstmt,rs);
+        }
+
+
+
+
+
+    }
+
+    public void del_Galaxy(String rNum) throws SQLException {
+        Connection conn = null;
+        PreparedStatement pstmt =null;
+        ResultSet rs = null;
+        String sql="DELETE FROM room WHERE rNum=?";
+
+        try {
+            conn=this.getConnection();
+            pstmt=(PreparedStatement)conn.prepareStatement(sql);
+            pstmt.setString(1,rNum);
+            pstmt.execute();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            this.closeAll(conn,pstmt,rs);
+        }
+
+
+    }
 }

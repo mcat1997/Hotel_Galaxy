@@ -23,13 +23,14 @@ import java.text.ParseException;
  * Created by a3899 on 2017/7/14.
  */
 public class BookRoomServlet_Galaxy extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-        String cId=request.getParameter("cId");
-        String cName=request.getParameter("cName");
-        String cSex=request.getParameter("cSex");
-        String cPhone=request.getParameter("cPhone");
-        String rNum=request.getParameter("rNum");
-        String dateIn=request.getParameter("dateIn");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String cId = request.getParameter("cId");
+        String cName = request.getParameter("cName");
+        String cSex = request.getParameter("cSex");
+        String cPhone = request.getParameter("cPhone");
+        String rNum = request.getParameter("rNum");
+        String dateIn = request.getParameter("dateIn");
+        System.out.println(rNum);
 
         //判断房号是否正确
         RoomDao_Galaxy roomDao_galaxy=new RoomDaoImpl_Galaxy();
@@ -70,6 +71,7 @@ public class BookRoomServlet_Galaxy extends HttpServlet {
                     try {
                         CheckInOutDao_Galaxy checkInOutDao_galaxy=new CheckInOutDaoImpl_Galaxy();
                             if(checkInOutDao_galaxy.check_Galaxy(checkInOut_galaxy)){
+                                System.out.println(checkInOut_galaxy.getCustomer_galaxy().getcId());
                                 checkInOutDao_galaxy.add_Galaxy(checkInOut_galaxy);
                                 roomDao_galaxy.setrState(room_galaxy);
                                 request.setAttribute("info","订房成功");
@@ -98,58 +100,7 @@ public class BookRoomServlet_Galaxy extends HttpServlet {
             e.printStackTrace();
         }//最外层try
 
-        }//doPost
+    }//doPost
 
-
-
-//        try {
-//            if (roomDao_galaxy.isRNum(rNum)) {
-//                //获取房间信息
-//                Room_Galaxy room_galaxy = roomDao_galaxy.select_Galaxy(rNum);
-//                if (room_galaxy.isRstate()) {
-//                    //添加客户信息
-//                    Customer_Galaxy customer_galaxy = new Customer_Galaxy();
-//                    customer_galaxy.setcId(cId);
-//                    customer_galaxy.setcName(cName);
-//                    customer_galaxy.setcPhone(cPhone);
-//                    customer_galaxy.setcSex(cSex);
-//                    CustomerDao_Galaxy customerDao_galaxy = new CustomerDaoImpl_Galaxy();
-//                    try {
-//                        customerDao_galaxy.add_Galaxy(customer_galaxy);
-//                    } catch (SQLException e) {
-//                        e.printStackTrace();
-//                    }
-//
-//                    //添加订单信息
-//                    CheckInOut_Galaxy checkInOut_galaxy = new CheckInOut_Galaxy();
-//                    try {
-//                        checkInOut_galaxy.setDateIn(dateIn);
-//                    } catch (ParseException e) {
-//                        e.printStackTrace();
-//                        request.setAttribute("info", "时间格式错误");
-//                        request.getRequestDispatcher("/bookRoom_Galaxy.jsp").forward(request, response);
-//                    }
-//                    checkInOut_galaxy.setCustomer_galaxy(customer_galaxy);
-//                    checkInOut_galaxy.setRoom_galaxy(room_galaxy);
-//                    ;
-//
-//                    request.getRequestDispatcher("/index.jsp").forward(request, response);
-//                }else {
-//                }
-//
-//
-//            } else {
-//                    request.setAttribute("info", "房号错误");
-//                    request.getRequestDispatcher("/bookRoom_Galaxy.jsp").forward(request, response);
-//                }
-//            } catch (SQLException e1) {
-//            e1.printStackTrace();
-//        }
-//    }catch(SQLException e){
-//                e.printStackTrace();
-//                request.setAttribute("info", "数据库操作出错");
-//                request.getRequestDispatcher("/bookRoom_Galaxy.jsp").forward(request, response);
-//            }
-//        }
 
 }

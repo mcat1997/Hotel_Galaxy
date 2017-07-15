@@ -28,6 +28,7 @@
             <ul class="nav navbar-nav">
                 <li ><a href="/login_galaxy.jsp">登录</a></li>
                 <li><a href="/room_galaxy">客房管理</a></li>
+                <li><a href="/room_add_galaxy.jsp">客房增加</a> </li>
                 <li><a href="/customer_galaxy">用户信息管理</a> </li>
                 <li><a href="/checkinout_galaxy">订单管理</a> </li>
             </ul>

@@ -9,6 +9,16 @@ public class Room_Galaxy {
     private float rprice;
     private boolean rstate;
 
+    public Room_Galaxy(){super();}
+
+    public Room_Galaxy(String rnum,String rtype,float rprice,boolean rstate){
+        this.rnum=rnum;
+        this.rtype=rtype;
+        this.rprice=rprice;
+        this.rstate=rstate;
+    }
+
+
     public String getRnum() {
         return rnum;
     }

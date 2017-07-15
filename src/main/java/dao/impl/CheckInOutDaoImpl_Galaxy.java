@@ -8,9 +8,10 @@ import entity.CheckInOut_Galaxy;
 import entity.Customer_Galaxy;
 
 import java.sql.*;
+import java.sql.Date;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by a3899 on 2017/7/13.
@@ -138,21 +139,84 @@ public class CheckInOutDaoImpl_Galaxy extends BaseDao implements CheckInOutDao_G
                 CheckInOut_Galaxy checkInOut_galaxy=new CheckInOut_Galaxy();
                 CustomerDao_Galaxy customerDao_galaxy=new CustomerDaoImpl_Galaxy();
                 RoomDao_Galaxy roomDao_galaxy=new RoomDaoImpl_Galaxy();
-                checkInOut_galaxy.setDateIn(new java.util.Date(rs.getDate("DateIn").getTime()));
+                SimpleDateFormat sd=new SimpleDateFormat("yyyy-MM-dd");
+                String dateIn=sd.format(rs.getDate("DateIn"));
+                System.out.println(sd.format(rs.getDate("DateIn")));
+                checkInOut_galaxy.setDateIn(dateIn);
                 if(rs.getDate("DateOut")!=null) {
-                    checkInOut_galaxy.setDateOut(new java.util.Date(rs.getDate("DateOut").getTime()));
+                    checkInOut_galaxy.setDateOut(sd.format(rs.getDate("DateOut")));
                 }
                 checkInOut_galaxy.setCustomer_galaxy(customerDao_galaxy.select_Galaxy(rs.getString("cId")));
                 checkInOut_galaxy.setRoom_galaxy(roomDao_galaxy.select_Galaxy(rs.getString("rNum")));
                 checkInOut_galaxy.setSumPrice(rs.getFloat("sumPrice"));
+                checkInOut_galaxy.setId(rs.getInt("id"));
                 list.add(checkInOut_galaxy);
 
             }
         }catch (SQLException e){
             e.printStackTrace();
-        }finally {
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } finally {
             this.closeAll(conn,pstmt,rs);
         }
         return list;
     }
+
+    public boolean isDone_Galaxy(String cId) throws SQLException {
+        Connection conn = null;
+        PreparedStatement pstmt =null;
+        ResultSet rs = null;
+        String sql ="SELECT * FROM checkinout";
+        boolean is=false;
+        try {
+            conn=this.getConnection();
+            pstmt=(PreparedStatement)conn.prepareStatement(sql);
+            rs=pstmt.executeQuery();
+
+            boolean is_cId=false;
+            boolean is_sumPrice=false;
+
+            while (rs.next()){
+                if(rs.getString("cId").equals(cId)){
+                    is_cId=true;
+                    if(rs.getFloat("sumPrice")!=0){
+                        is_sumPrice=true;
+                    }
+                }
+            }
+
+            is=is_cId&&is_sumPrice;
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            this.closeAll(conn,pstmt,rs);
+        }
+
+
+
+        return is;
+    }
+
+    public void del_Galaxy(int id)throws SQLException{
+
+        Connection conn = null;
+        PreparedStatement pstmt =null;
+        ResultSet rs = null;
+        String sql ="DELETE FROM checkinout WHERE id=?";
+
+        try {
+            conn=this.getConnection();
+            pstmt=(PreparedStatement)conn.prepareStatement(sql);
+            pstmt.setInt(1,id);
+            pstmt.execute();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            this.closeAll(conn,pstmt,rs);
+        }
+    }
+
+
 }

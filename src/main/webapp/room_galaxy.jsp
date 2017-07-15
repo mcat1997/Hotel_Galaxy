@@ -12,7 +12,11 @@
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <title>Galaxy酒店管理系统-房间管理</title>
     <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-
+    <script type="text/javascript">
+        function bookClick() {
+            this.location.href="bookRoom_Galaxy.jsp?rNum=${room.rnum}";
+        }
+    </script>
 </head>
 <body>
 <c:if test="${empty username}">
@@ -28,6 +32,7 @@
             <ul class="nav navbar-nav">
                 <li ><a href="/login_galaxy.jsp">登录</a></li>
                 <li class="active"><a href="/room_galaxy">客房管理</a></li>
+                <li><a href="/room_add_galaxy.jsp">客房增加</a> </li>
                 <li><a href="/customer_galaxy">用户信息管理</a> </li>
                 <li><a href="/checkinout_galaxy">订单管理</a> </li>
             </ul>
@@ -42,6 +47,8 @@
             <td>房价/天</td>
             <td>房间状态</td>
             <td>退/订房</td>
+            <td>编辑</td>
+            <td>删除</td>
         </tr>
         <c:forEach var="room" items="${roomList}">
             <tr>
@@ -58,13 +65,27 @@
                 </td>
                 <td>
                     <c:if test="${room.rstate==true}">
-                        <button type="button" class="btn btn-primary" onclick="location='bookRoom_Galaxy.jsp'">
+                        <button type="button" class="btn btn-primary" onclick="location='bookRoom_Galaxy.jsp?rNum=${room.rnum}'">
                             订房
                         </button>
                     </c:if>
                     <c:if test="${room.rstate==false}">
-                        <button type="button" class="btn btn-primary" onclick="location='leaveRoom_Galaxy.jsp'">
+                        <button type="button" class="btn btn-primary" onclick="location='leaveRoom_Galaxy.jsp?rNum=${room.rnum}'">
                             退房
+                        </button>
+                    </c:if>
+                </td>
+                <td>
+                    <c:if test="${room.rstate==true}">
+                        <button type="button" class="btn btn-primary" onclick="location='editRoom_Galaxy.jsp?rNum=${room.rnum}'">
+                            编辑
+                        </button>
+                    </c:if>
+                </td>
+                <td>
+                    <c:if test="${room.rstate==true}">
+                        <button type="button" class="btn btn-primary" onclick="location='delRoom_Galaxy?rNum=${room.rnum}'">
+                            删除
                         </button>
                     </c:if>
                 </td>

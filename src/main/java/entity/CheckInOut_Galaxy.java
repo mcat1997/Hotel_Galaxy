@@ -1,5 +1,6 @@
 package entity;
 
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,6 +14,7 @@ public class CheckInOut_Galaxy {
     private Customer_Galaxy customer_galaxy;
     private Room_Galaxy room_galaxy;
     private float sumPrice;
+    private int id;
 
     public CheckInOut_Galaxy(){
         dateIn=null;
@@ -21,6 +23,7 @@ public class CheckInOut_Galaxy {
         room_galaxy=null;
         sumPrice=0;
     }
+
 
     public Date getDateIn() {
         return dateIn;
@@ -80,5 +83,14 @@ public class CheckInOut_Galaxy {
 
     public void setSumPrice(float sumPrice) {
         this.sumPrice = sumPrice;
+    }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

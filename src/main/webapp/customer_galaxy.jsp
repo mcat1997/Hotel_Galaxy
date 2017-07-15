@@ -28,6 +28,7 @@
             <ul class="nav navbar-nav">
                 <li ><a href="/login_galaxy.jsp">登录</a></li>
                 <li ><a href="/room_galaxy">客房管理</a></li>
+                <li><a href="/room_add_galaxy.jsp">客房增加</a> </li>
                 <li class="active" ><a href="/customer_galaxy">用户信息管理</a> </li>
                 <li><a href="/checkinout_galaxy">订单管理</a> </li>
             </ul>
@@ -40,6 +41,8 @@
             <td>姓名</td>
             <td>性别</td>
             <td>手机号</td>
+            <td>编辑</td>
+            <td>删除</td>
         </tr>
         <c:forEach var="customer" items="${customerList}">
             <tr>
@@ -47,6 +50,16 @@
                 <td>${customer.cName}</td>
                 <td>${customer.cSex}</td>
                 <td>${customer.cPhone}</td>
+                <td>
+                    <button type="button" class="btn btn-primary" onclick="location='editCustomer_Galaxy.jsp?cId=${customer.cId}'">
+                        编辑
+                    </button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-primary" onclick="location='delCustomer_Galaxy?cId=${customer.cId}'">
+                        删除
+                    </button>
+                </td>
             </tr>
         </c:forEach>
     </table>

@@ -13,4 +13,7 @@ public interface RoomDao_Galaxy {
     Room_Galaxy select_Galaxy(String rNum)throws SQLException;
     void setrState(Room_Galaxy room_galaxy)throws SQLException;
     boolean isRNum(String rNum)throws SQLException;
+    void add_Galaxy(Room_Galaxy room_galaxy)throws SQLException;
+    void edit_Galaxy(Room_Galaxy room_galaxy)throws SQLException;
+    void del_Galaxy(String rNum)throws SQLException;
 }

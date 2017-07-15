@@ -9,6 +9,16 @@ public class Customer_Galaxy {
     private String cSex;
     private String cPhone;
 
+    public Customer_Galaxy(){
+        super();
+    }
+    public Customer_Galaxy(String cId,String cName,String cSex,String cPhone){
+        this.cId=cId;
+        this.cName=cName;
+        this.cPhone=cPhone;
+        this.cSex=cSex;
+    }
+
     public String getcId() {
         return cId;
     }

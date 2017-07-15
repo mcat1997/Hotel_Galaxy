@@ -62,5 +62,58 @@
         <url-pattern>/leaveRoomServlet</url-pattern>
     </servlet-mapping>
     
+    <servlet>
+        <servlet-name>addRoomServlet_Galaxy</servlet-name>
+        <servlet-class>servlet.AddRoomServlet_Galaxy</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>addRoomServlet_Galaxy</servlet-name>
+        <url-pattern>/addRoomServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>editRoomServlet_Galaxy</servlet-name>
+        <servlet-class>servlet.EditRoomServlet_Galaxy</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>editRoomServlet_Galaxy</servlet-name>
+        <url-pattern>/editRoomServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>delRoomServlet_Galaxy</servlet-name>
+        <servlet-class>servlet.DelRoomServlet_Galaxy</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>delRoomServlet_Galaxy</servlet-name>
+        <url-pattern>/delRoom_Galaxy</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>editCustomerServlet_Galaxy</servlet-name>
+        <servlet-class>servlet.EditCustomerServlet_Galaxy</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>editCustomerServlet_Galaxy</servlet-name>
+        <url-pattern>/editCustomerServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>delCustomerServlet_Galaxy</servlet-name>
+        <servlet-class>servlet.DelCustomerServlet_Galaxy</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>delCustomerServlet_Galaxy</servlet-name>
+        <url-pattern>/delCustomer_Galaxy</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>delCheckinoutServlet_Galaxy</servlet-name>
+        <servlet-class>servlet.DelCheckInOutServlet_Galaxy</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>delCheckinoutServlet_Galaxy</servlet-name>
+        <url-pattern>/delCheckinout_Galaxy</url-pattern>
+    </servlet-mapping>
 
 </web-app>

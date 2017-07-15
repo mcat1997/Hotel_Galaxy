@@ -14,4 +14,6 @@ public interface CheckInOutDao_Galaxy {
     void change_Galaxy(CheckInOut_Galaxy checkInOut_galaxy)throws SQLException;
     CheckInOut_Galaxy select_Galaxy(String rNum)throws SQLException;
     List<CheckInOut_Galaxy> list()throws SQLException;
+    boolean isDone_Galaxy(String cId)throws SQLException;
+    void del_Galaxy(int id)throws SQLException;
 }

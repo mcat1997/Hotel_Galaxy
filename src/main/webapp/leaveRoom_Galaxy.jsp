@@ -28,6 +28,7 @@
             <ul class="nav navbar-nav">
                 <li><a href="/login_galaxy.jsp">登录</a></li>
                 <li><a href="/room_galaxy">客房管理</a></li>
+                <li><a href="/room_add_galaxy.jsp">客房增加</a> </li>
                 <li><a href="/customer_galaxy">用户信息管理</a> </li>
                 <li><a href="/checkinout_galaxy">订单管理</a> </li>
             </ul>
@@ -37,17 +38,18 @@
 <form class="form-horizontal" action="/leaveRoomServlet" method="post">
     <h2 class="form-signin-heading">${info}</h2>
     <div class="form-group">
+        <label for="inputRNum" class="col-sm-2 control-label">房号</label>
+        <div class="col-sm-6">
+            <input readonly type="text" class="form-control" id="inputRNum" name="rNum" value="${param["rNum"]}">
+        </div>
+    </div>
+    <div class="form-group">
         <label for="inputCid" class="col-sm-2 control-label">身份证号</label>
         <div class="col-sm-6">
             <input type="text" class="form-control" id="inputCid" name="cId">
         </div>
     </div>
-    <div class="form-group">
-        <label for="inputRNum" class="col-sm-2 control-label">房号</label>
-        <div class="col-sm-6">
-            <input type="text" class="form-control" id="inputRNum" name="rNum">
-        </div>
-    </div>
+
     <div class="form-group">
         <label for="inputDateOut" class="col-sm-2 control-label">退房时间</label>
         <div class="col-sm-6">
