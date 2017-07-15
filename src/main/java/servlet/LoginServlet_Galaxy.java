@@ -32,7 +32,7 @@ public class LoginServlet_Galaxy extends HttpServlet {
         }
         if(re==0){
             req.getSession(true).setAttribute("username",username);
-            req.getSession().setMaxInactiveInterval(60);
+            req.getSession().setMaxInactiveInterval(600);
             req.getRequestDispatcher("index.jsp").forward(req,resp);
         }else if(re==1){
             req.setAttribute("info","没有此用户名");

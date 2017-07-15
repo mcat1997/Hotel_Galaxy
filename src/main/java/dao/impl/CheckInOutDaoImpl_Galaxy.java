@@ -2,10 +2,15 @@ package dao.impl;
 
 import dao.BaseDao;
 import dao.CheckInOutDao_Galaxy;
+import dao.CustomerDao_Galaxy;
+import dao.RoomDao_Galaxy;
 import entity.CheckInOut_Galaxy;
+import entity.Customer_Galaxy;
 
 import java.sql.*;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by a3899 on 2017/7/13.
@@ -64,5 +69,90 @@ public class CheckInOutDaoImpl_Galaxy extends BaseDao implements CheckInOutDao_G
         }finally {
             this.closeAll(conn,pstmt,rs);
         }
+    }
+
+    public void change_Galaxy(CheckInOut_Galaxy checkInOut_galaxy) throws SQLException {
+        Connection conn = null;
+        PreparedStatement pstmt =null;
+        ResultSet rs = null;
+        String sql ="UPDATE checkinout SET dateOut = ?, sumPrice = ? WHERE cId = ? AND sumPrice = ?";
+
+        try {
+            conn=this.getConnection();
+            pstmt=(PreparedStatement)conn.prepareStatement(sql);
+            pstmt.setDate(1,new java.sql.Date( checkInOut_galaxy.getDateOut().getTime()));
+            pstmt.setFloat(2,checkInOut_galaxy.getSumPrice());
+            pstmt.setString(3,checkInOut_galaxy.getCustomer_galaxy().getcId());
+            pstmt.setFloat(4,0);
+            pstmt.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+            System.out.println("存储checkinout失败");
+        }finally {
+            this.closeAll(conn,pstmt,rs);
+        }
+    }
+
+    public CheckInOut_Galaxy select_Galaxy(String rNum) throws SQLException {
+        Connection conn=null;
+        PreparedStatement pstmt=null;
+        ResultSet rs=null;
+        String sql="SELECT * FROM checkinout WHERE rNum = ?";
+
+        CheckInOut_Galaxy checkInOut_galaxy=new CheckInOut_Galaxy();
+
+        try {
+            conn=this.getConnection();
+            pstmt=(PreparedStatement)conn.prepareStatement(sql);
+            pstmt.setString(1,rNum);
+            rs=pstmt.executeQuery();
+            RoomDao_Galaxy roomDao_galaxy = new RoomDaoImpl_Galaxy();
+            CustomerDao_Galaxy customerDao_galaxy=new CustomerDaoImpl_Galaxy();
+            while (rs.next()){
+                if(rs.getFloat("sumPrice")==0){
+                    checkInOut_galaxy.setDateIn(new java.util.Date(rs.getDate("dateIn").getTime()));
+                    if(rs.getDate("dateOut")!=null){
+                        checkInOut_galaxy.setDateOut(new java.util.Date(rs.getDate("dateOut").getTime()));
+                    }
+                    checkInOut_galaxy.setRoom_galaxy(roomDao_galaxy.select_Galaxy(rNum));
+                    checkInOut_galaxy.setCustomer_galaxy(customerDao_galaxy.select_Galaxy(rs.getString("cId")));
+                }
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return checkInOut_galaxy;
+    }
+
+    public List<CheckInOut_Galaxy> list() throws SQLException {
+        List<CheckInOut_Galaxy> list=new ArrayList<CheckInOut_Galaxy>();
+        Connection conn = null;
+        PreparedStatement pstmt =null;
+        ResultSet rs = null;
+        String sql ="select * from checkinout";
+        try {
+            conn=this.getConnection();
+            pstmt=(PreparedStatement)conn.prepareStatement(sql);
+            rs=pstmt.executeQuery();
+            while (rs.next()){
+                CheckInOut_Galaxy checkInOut_galaxy=new CheckInOut_Galaxy();
+                CustomerDao_Galaxy customerDao_galaxy=new CustomerDaoImpl_Galaxy();
+                RoomDao_Galaxy roomDao_galaxy=new RoomDaoImpl_Galaxy();
+                checkInOut_galaxy.setDateIn(new java.util.Date(rs.getDate("DateIn").getTime()));
+                if(rs.getDate("DateOut")!=null) {
+                    checkInOut_galaxy.setDateOut(new java.util.Date(rs.getDate("DateOut").getTime()));
+                }
+                checkInOut_galaxy.setCustomer_galaxy(customerDao_galaxy.select_Galaxy(rs.getString("cId")));
+                checkInOut_galaxy.setRoom_galaxy(roomDao_galaxy.select_Galaxy(rs.getString("rNum")));
+                checkInOut_galaxy.setSumPrice(rs.getFloat("sumPrice"));
+                list.add(checkInOut_galaxy);
+
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            this.closeAll(conn,pstmt,rs);
+        }
+        return list;
     }
 }

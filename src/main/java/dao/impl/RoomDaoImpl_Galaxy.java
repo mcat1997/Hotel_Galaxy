@@ -53,12 +53,8 @@ public class RoomDaoImpl_Galaxy extends BaseDao implements RoomDao_Galaxy {
 
         try {
             conn=this.getConnection();
-            System.out.println(conn.isClosed());
             pstmt=(PreparedStatement) conn.prepareStatement(sql);
-            System.out.println("preparedStatement连接成功");
-            //preparedStatement连接成功
         }catch (SQLException e){
-            System.out.println("preparedStatement连接失败");
             e.printStackTrace();
         }
 

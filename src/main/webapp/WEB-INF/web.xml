@@ -27,6 +27,24 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>checkinout_galaxy</servlet-name>
+        <servlet-class>servlet.CheckInOutServlet_Galaxy</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>checkinout_galaxy</servlet-name>
+        <url-pattern>/checkinout_galaxy</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>customer_galaxy</servlet-name>
+        <servlet-class>servlet.CustomerServlet_Galaxy</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>customer_galaxy</servlet-name>
+        <url-pattern>/customer_galaxy</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>bookRoomServlet_galaxy</servlet-name>
         <servlet-class>servlet.BookRoomServlet_Galaxy</servlet-class>
     </servlet>
@@ -34,4 +52,15 @@
         <servlet-name>bookRoomServlet_galaxy</servlet-name>
         <url-pattern>/bookRoomServlet</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>leaveRoomServlet_galaxy</servlet-name>
+        <servlet-class>servlet.LeaveRoomServlet_Galaxy</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>leaveRoomServlet_galaxy</servlet-name>
+        <url-pattern>/leaveRoomServlet</url-pattern>
+    </servlet-mapping>
+    
+
 </web-app>

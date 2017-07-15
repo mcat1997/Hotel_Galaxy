@@ -28,13 +28,13 @@
             <ul class="nav navbar-nav">
                 <li ><a href="/login_galaxy.jsp">登录</a></li>
                 <li class="active"><a href="/room_galaxy">客房管理</a></li>
-                <li><a href="/client_galaxy.jsp">用户信息管理</a> </li>
+                <li><a href="/customer_galaxy">用户信息管理</a> </li>
+                <li><a href="/checkinout_galaxy">订单管理</a> </li>
             </ul>
         </div>
     </div>
 </nav>
 
-<c:if test="${!empty roomList}">
     <table class="table table-hover">
         <tr>
             <td>房间号</td>
@@ -63,7 +63,7 @@
                         </button>
                     </c:if>
                     <c:if test="${room.rstate==false}">
-                        <button type="button" class="btn btn-primary">
+                        <button type="button" class="btn btn-primary" onclick="location='leaveRoom_Galaxy.jsp'">
                             退房
                         </button>
                     </c:if>
@@ -71,7 +71,6 @@
             </tr>
         </c:forEach>
     </table>
-</c:if>
 
 
 <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>

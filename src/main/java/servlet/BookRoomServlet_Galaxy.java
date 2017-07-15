@@ -71,7 +71,9 @@ public class BookRoomServlet_Galaxy extends HttpServlet {
                         CheckInOutDao_Galaxy checkInOutDao_galaxy=new CheckInOutDaoImpl_Galaxy();
                             if(checkInOutDao_galaxy.check_Galaxy(checkInOut_galaxy)){
                                 checkInOutDao_galaxy.add_Galaxy(checkInOut_galaxy);
-                                request.getRequestDispatcher("/index.jsp").forward(request,response);
+                                roomDao_galaxy.setrState(room_galaxy);
+                                request.setAttribute("info","订房成功");
+                                request.getRequestDispatcher("/allert.jsp").forward(request,response);
                             }else {
                                 request.setAttribute("info","您已订过房间，请退房后再进行订房");
                                 request.getRequestDispatcher("/bookRoom_Galaxy.jsp").forward(request,response);
