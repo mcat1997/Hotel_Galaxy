@@ -22,7 +22,6 @@ import java.text.SimpleDateFormat;
  */
 public class LeaveRoomServlet_Galaxy extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
-        String cId=request.getParameter("cId");
         String rNum=request.getParameter("rNum");
         String dateOut=request.getParameter("dateOut");
 
@@ -32,22 +31,17 @@ public class LeaveRoomServlet_Galaxy extends HttpServlet {
             if(roomDao_galaxy.isRNum(rNum)){
                 //获取房间信息
                 Room_Galaxy room_galaxy=roomDao_galaxy.select_Galaxy(rNum);
-                if(!room_galaxy.isRstate()){
+                if(!room_galaxy.isrState()){
                     CheckInOutDao_Galaxy checkInOutDao_galaxy=new CheckInOutDaoImpl_Galaxy();
                     CheckInOut_Galaxy checkInOut_galaxy = checkInOutDao_galaxy.select_Galaxy(rNum);
                     float sumPrice=0;
-                    try {
-                        checkInOut_galaxy.setDateOut(dateOut);
-                    }catch (ParseException e) {
-                        e.printStackTrace();
-                        request.setAttribute("info", "日期格式错误");
-                        request.getRequestDispatcher("/leaveRoom_Galaxy.jsp").forward(request, response);
-                    }
-                    sumPrice=(checkInOut_galaxy.getDateOut().getTime()-checkInOut_galaxy.getDateIn().getTime())*checkInOut_galaxy.getRoom_galaxy().getRprice()/(24*60*60*1000);
+                    checkInOut_galaxy.setDateOut(dateOut);
+                    SimpleDateFormat sd=new SimpleDateFormat("yyyy-MM-dd");
+                    sumPrice=(sd.parse(checkInOut_galaxy.getDateOut()).getTime()-sd.parse(checkInOut_galaxy.getDateIn()).getTime())*room_galaxy.getrPrice()/(24*60*60*1000);
                     checkInOut_galaxy.setSumPrice(sumPrice);
                     System.out.println(checkInOut_galaxy.getSumPrice());
                     checkInOutDao_galaxy.change_Galaxy(checkInOut_galaxy);
-                    roomDao_galaxy.setrState(checkInOut_galaxy.getRoom_galaxy());
+                    roomDao_galaxy.setrState(rNum);
                     request.setAttribute("info","退房成功");
                     request.setAttribute("info2","房价为"+checkInOut_galaxy.getSumPrice()+"元");
                     request.getRequestDispatcher("/allert.jsp").forward(request,response);
@@ -62,6 +56,8 @@ public class LeaveRoomServlet_Galaxy extends HttpServlet {
                 request.getRequestDispatcher("/leaveRoom_Galaxy.jsp").forward(request,response);
             }
         }catch (SQLException e){
+            e.printStackTrace();
+        }catch (ParseException e){
             e.printStackTrace();
         }
 

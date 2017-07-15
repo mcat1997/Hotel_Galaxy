@@ -50,8 +50,8 @@
             <td>${checkinout.id}</td>
             <td>${checkinout.dateIn}</td>
             <td>${checkinout.dateOut}</td>
-            <td>${checkinout.customer_galaxy.cId}</td>
-            <td>${checkinout.room_galaxy.rnum}</td>
+            <td>${checkinout.cId}</td>
+            <td>${checkinout.rNum}</td>
             <td>${checkinout.sumPrice}</td>
             <td>
                 <c:if test="${checkinout.sumPrice!=0}" >

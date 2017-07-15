@@ -4,50 +4,49 @@ package entity;
  * Created by a3899 on 2017/7/13.
  */
 public class Room_Galaxy {
-    private String rnum;
-    private String rtype;
-    private float rprice;
-    private boolean rstate;
+    private String rNum;
+    private String rType;
+    private float rPrice;
+    private boolean rState;
 
     public Room_Galaxy(){super();}
 
-    public Room_Galaxy(String rnum,String rtype,float rprice,boolean rstate){
-        this.rnum=rnum;
-        this.rtype=rtype;
-        this.rprice=rprice;
-        this.rstate=rstate;
+    public Room_Galaxy(String rNum,String rType,float rPrice,boolean rState){
+        this.rNum=rNum;
+        this.rType=rType;
+        this.rPrice=rPrice;
+        this.rState=rState;
     }
 
-
-    public String getRnum() {
-        return rnum;
+    public String getrNum() {
+        return rNum;
     }
 
-    public void setRnum(String rnum) {
-        this.rnum = rnum;
+    public void setrNum(String rNum) {
+        this.rNum = rNum;
     }
 
-    public String getRtype() {
-        return rtype;
+    public String getrType() {
+        return rType;
     }
 
-    public void setRtype(String rtype) {
-        this.rtype = rtype;
+    public void setrType(String rType) {
+        this.rType = rType;
     }
 
-    public float getRprice() {
-        return rprice;
+    public float getrPrice() {
+        return rPrice;
     }
 
-    public void setRprice(float rprice) {
-        this.rprice = rprice;
+    public void setrPrice(float rPrice) {
+        this.rPrice = rPrice;
     }
 
-    public boolean isRstate() {
-        return rstate;
+    public boolean isrState() {
+        return rState;
     }
 
-    public void setRstate(boolean rstate) {
-        this.rstate = rstate;
+    public void setrState(boolean rState) {
+        this.rState = rState;
     }
 }

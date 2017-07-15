@@ -52,39 +52,39 @@
         </tr>
         <c:forEach var="room" items="${roomList}">
             <tr>
-                <td>${room.rnum}</td>
-                <td>${room.rtype}</td>
-                <td>${room.rprice}</td>
+                <td>${room.rNum}</td>
+                <td>${room.rType}</td>
+                <td>${room.rPrice}</td>
                 <td>
-                    <c:if test="${room.rstate==true}">
+                    <c:if test="${room.rState==true}">
                         未订出
                     </c:if>
-                    <c:if test="${room.rstate==false}">
+                    <c:if test="${room.rState==false}">
                         已订出
                     </c:if>
                 </td>
                 <td>
-                    <c:if test="${room.rstate==true}">
-                        <button type="button" class="btn btn-primary" onclick="location='bookRoom_Galaxy.jsp?rNum=${room.rnum}'">
+                    <c:if test="${room.rState==true}">
+                        <button type="button" class="btn btn-primary" onclick="location='bookRoom_Galaxy.jsp?rNum=${room.rNum}'">
                             订房
                         </button>
                     </c:if>
-                    <c:if test="${room.rstate==false}">
-                        <button type="button" class="btn btn-primary" onclick="location='leaveRoom_Galaxy.jsp?rNum=${room.rnum}'">
+                    <c:if test="${room.rState==false}">
+                        <button type="button" class="btn btn-primary" onclick="location='leaveRoom_Galaxy.jsp?rNum=${room.rNum}'">
                             退房
                         </button>
                     </c:if>
                 </td>
                 <td>
-                    <c:if test="${room.rstate==true}">
-                        <button type="button" class="btn btn-primary" onclick="location='editRoom_Galaxy.jsp?rNum=${room.rnum}'">
+                    <c:if test="${room.rState==true}">
+                        <button type="button" class="btn btn-primary" onclick="location='editRoom_Galaxy.jsp?rNum=${room.rNum}'">
                             编辑
                         </button>
                     </c:if>
                 </td>
                 <td>
-                    <c:if test="${room.rstate==true}">
-                        <button type="button" class="btn btn-primary" onclick="location='delRoom_Galaxy?rNum=${room.rnum}'">
+                    <c:if test="${room.rState==true}">
+                        <button type="button" class="btn btn-primary" onclick="location='delRoom_Galaxy?rNum=${room.rNum}'">
                             删除
                         </button>
                     </c:if>

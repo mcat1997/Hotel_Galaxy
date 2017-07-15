@@ -43,12 +43,6 @@
             <input readonly type="text" class="form-control" id="inputRNum" name="rNum" value="${param["rNum"]}">
         </div>
     </div>
-    <div class="form-group">
-        <label for="inputCid" class="col-sm-2 control-label">身份证号</label>
-        <div class="col-sm-6">
-            <input type="text" class="form-control" id="inputCid" name="cId">
-        </div>
-    </div>
 
     <div class="form-group">
         <label for="inputDateOut" class="col-sm-2 control-label">退房时间</label>

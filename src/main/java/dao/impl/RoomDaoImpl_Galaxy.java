@@ -29,10 +29,10 @@ public class RoomDaoImpl_Galaxy extends BaseDao implements RoomDao_Galaxy {
             rs=pstmt.executeQuery();
             while (rs.next()){
                 Room_Galaxy room_galaxy=new Room_Galaxy();
-                room_galaxy.setRnum(rs.getString("rNum").trim());
-                room_galaxy.setRprice(rs.getFloat("rPrice"));
-                room_galaxy.setRstate(rs.getBoolean("rState"));
-                room_galaxy.setRtype(rs.getString("rType").trim());
+                room_galaxy.setrNum(rs.getString("rNum").trim());
+                room_galaxy.setrPrice(rs.getFloat("rPrice"));
+                room_galaxy.setrState(rs.getBoolean("rState"));
+                room_galaxy.setrType(rs.getString("rType").trim());
                 list.add(room_galaxy);
             }
         }catch (SQLException e){
@@ -62,10 +62,10 @@ public class RoomDaoImpl_Galaxy extends BaseDao implements RoomDao_Galaxy {
             rs=pstmt.executeQuery();
             while (rs.next()){
                 if(rs.getString("rNum").equals(rNum)){
-                    room_galaxy.setRnum(rNum);
-                    room_galaxy.setRtype(rs.getString("rType"));
-                    room_galaxy.setRprice(rs.getFloat("rPrice"));
-                    room_galaxy.setRstate(rs.getBoolean("rState"));
+                    room_galaxy.setrNum(rNum);
+                    room_galaxy.setrType(rs.getString("rType"));
+                    room_galaxy.setrPrice(rs.getFloat("rPrice"));
+                    room_galaxy.setrState(rs.getBoolean("rState"));
                 }
             }
         }catch (SQLException e){
@@ -77,17 +77,18 @@ public class RoomDaoImpl_Galaxy extends BaseDao implements RoomDao_Galaxy {
         return room_galaxy;
     }
 
-    public void setrState(Room_Galaxy room_galaxy) throws SQLException {
+    public void setrState(String rNum) throws SQLException {
         Connection conn = null;
         PreparedStatement pstmt =null;
         ResultSet rs = null;
         String sql ="UPDATE room SET rState=? where rNum=?";
 
         try {
+            Room_Galaxy room_galaxy=this.select_Galaxy(rNum);
             conn=this.getConnection();
             pstmt=(PreparedStatement)conn.prepareStatement(sql);
-            pstmt.setBoolean(1,!room_galaxy.isRstate());
-            pstmt.setString(2,room_galaxy.getRnum());
+            pstmt.setBoolean(1,!room_galaxy.isrState());
+            pstmt.setString(2,room_galaxy.getrNum());
             pstmt.execute();
         }catch (SQLException e){
             e.printStackTrace();
@@ -130,10 +131,10 @@ public class RoomDaoImpl_Galaxy extends BaseDao implements RoomDao_Galaxy {
         try {
             conn=this.getConnection();
             pstmt=(PreparedStatement)conn.prepareStatement(sql);
-            pstmt.setString(1,room_galaxy.getRnum());
-            pstmt.setString(2,room_galaxy.getRtype());
-            pstmt.setFloat(3,room_galaxy.getRprice());
-            pstmt.setBoolean(4,room_galaxy.isRstate());
+            pstmt.setString(1,room_galaxy.getrNum());
+            pstmt.setString(2,room_galaxy.getrType());
+            pstmt.setFloat(3,room_galaxy.getrPrice());
+            pstmt.setBoolean(4,room_galaxy.isrState());
             pstmt.execute();
 
         }catch (SQLException e){
@@ -152,9 +153,9 @@ public class RoomDaoImpl_Galaxy extends BaseDao implements RoomDao_Galaxy {
         try {
             conn=this.getConnection();
             pstmt=(PreparedStatement)conn.prepareStatement(sql);
-            pstmt.setString(1,room_galaxy.getRtype());
-            pstmt.setFloat(2,room_galaxy.getRprice());
-            pstmt.setString(3,room_galaxy.getRnum());
+            pstmt.setString(1,room_galaxy.getrType());
+            pstmt.setFloat(2,room_galaxy.getrPrice());
+            pstmt.setString(3,room_galaxy.getrNum());
             pstmt.executeUpdate();
 
         }catch (SQLException e){

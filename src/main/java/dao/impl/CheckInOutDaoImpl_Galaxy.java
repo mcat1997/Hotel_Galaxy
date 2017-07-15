@@ -29,7 +29,7 @@ public class CheckInOutDaoImpl_Galaxy extends BaseDao implements CheckInOutDao_G
             pstmt=(PreparedStatement)conn.prepareStatement(sql);
             rs=pstmt.executeQuery();
             while (rs.next()){
-                if(rs.getString("cId").equals(checkInOut_galaxy.getCustomer_galaxy().getcId())){
+                if(rs.getString("cId").equals(checkInOut_galaxy.getcId())){
                     if(rs.getInt("sumPrice")==0){
                         is=false;
                     }
@@ -51,18 +51,18 @@ public class CheckInOutDaoImpl_Galaxy extends BaseDao implements CheckInOutDao_G
         Connection conn = null;
         PreparedStatement pstmt =null;
         ResultSet rs = null;
-        String sql ="Insert into checkinout Values(?,?,?,?,?)";
+        String sql ="Insert into checkinout(dateIn, dateOut, cId, rNum, sumPrice)Values(?,?,?,?,?)";
         try {
             conn=this.getConnection();
             pstmt=(PreparedStatement)conn.prepareStatement(sql);
-            pstmt.setDate(1, new java.sql.Date( checkInOut_galaxy.getDateIn().getTime()));
+            pstmt.setDate(1,java.sql.Date.valueOf(checkInOut_galaxy.getDateIn()));
             if(checkInOut_galaxy.getDateOut()!=null){
-            pstmt.setDate(2, new java.sql.Date( checkInOut_galaxy.getDateOut().getTime()));
+            pstmt.setDate(2, java.sql.Date.valueOf(checkInOut_galaxy.getDateOut()));
             }else {
                 pstmt.setDate(2,null);
             }
-            pstmt.setString(3,checkInOut_galaxy.getCustomer_galaxy().getcId());
-            pstmt.setString(4,checkInOut_galaxy.getRoom_galaxy().getRnum());
+            pstmt.setString(3,checkInOut_galaxy.getcId());
+            pstmt.setString(4,checkInOut_galaxy.getrNum());
             pstmt.setFloat(5,checkInOut_galaxy.getSumPrice());
             pstmt.execute();
         }catch (SQLException e){
@@ -81,9 +81,9 @@ public class CheckInOutDaoImpl_Galaxy extends BaseDao implements CheckInOutDao_G
         try {
             conn=this.getConnection();
             pstmt=(PreparedStatement)conn.prepareStatement(sql);
-            pstmt.setDate(1,new java.sql.Date( checkInOut_galaxy.getDateOut().getTime()));
+            pstmt.setDate(1,java.sql.Date.valueOf(checkInOut_galaxy.getDateOut()));
             pstmt.setFloat(2,checkInOut_galaxy.getSumPrice());
-            pstmt.setString(3,checkInOut_galaxy.getCustomer_galaxy().getcId());
+            pstmt.setString(3,checkInOut_galaxy.getcId());
             pstmt.setFloat(4,0);
             pstmt.executeUpdate();
         }catch (SQLException e){
@@ -111,12 +111,12 @@ public class CheckInOutDaoImpl_Galaxy extends BaseDao implements CheckInOutDao_G
             CustomerDao_Galaxy customerDao_galaxy=new CustomerDaoImpl_Galaxy();
             while (rs.next()){
                 if(rs.getFloat("sumPrice")==0){
-                    checkInOut_galaxy.setDateIn(new java.util.Date(rs.getDate("dateIn").getTime()));
+                    checkInOut_galaxy.setDateIn(rs.getDate("dateIn").toString());
                     if(rs.getDate("dateOut")!=null){
-                        checkInOut_galaxy.setDateOut(new java.util.Date(rs.getDate("dateOut").getTime()));
+                        checkInOut_galaxy.setDateOut(rs.getDate("dateOut").toString());
                     }
-                    checkInOut_galaxy.setRoom_galaxy(roomDao_galaxy.select_Galaxy(rNum));
-                    checkInOut_galaxy.setCustomer_galaxy(customerDao_galaxy.select_Galaxy(rs.getString("cId")));
+                    checkInOut_galaxy.setrNum(rNum);
+                    checkInOut_galaxy.setcId(rs.getString("cId"));
                 }
             }
         }catch (SQLException e){
@@ -137,25 +137,19 @@ public class CheckInOutDaoImpl_Galaxy extends BaseDao implements CheckInOutDao_G
             rs=pstmt.executeQuery();
             while (rs.next()){
                 CheckInOut_Galaxy checkInOut_galaxy=new CheckInOut_Galaxy();
-                CustomerDao_Galaxy customerDao_galaxy=new CustomerDaoImpl_Galaxy();
-                RoomDao_Galaxy roomDao_galaxy=new RoomDaoImpl_Galaxy();
-                SimpleDateFormat sd=new SimpleDateFormat("yyyy-MM-dd");
-                String dateIn=sd.format(rs.getDate("DateIn"));
-                System.out.println(sd.format(rs.getDate("DateIn")));
-                checkInOut_galaxy.setDateIn(dateIn);
+
+                checkInOut_galaxy.setDateIn(rs.getDate("DateIn").toString());
                 if(rs.getDate("DateOut")!=null) {
-                    checkInOut_galaxy.setDateOut(sd.format(rs.getDate("DateOut")));
+                    checkInOut_galaxy.setDateOut(rs.getDate("DateOut").toString());
                 }
-                checkInOut_galaxy.setCustomer_galaxy(customerDao_galaxy.select_Galaxy(rs.getString("cId")));
-                checkInOut_galaxy.setRoom_galaxy(roomDao_galaxy.select_Galaxy(rs.getString("rNum")));
+                checkInOut_galaxy.setcId(rs.getString("cId"));
+                checkInOut_galaxy.setrNum(rs.getString("rNum"));
                 checkInOut_galaxy.setSumPrice(rs.getFloat("sumPrice"));
                 checkInOut_galaxy.setId(rs.getInt("id"));
                 list.add(checkInOut_galaxy);
 
             }
         }catch (SQLException e){
-            e.printStackTrace();
-        } catch (ParseException e) {
             e.printStackTrace();
         } finally {
             this.closeAll(conn,pstmt,rs);
@@ -185,8 +179,7 @@ public class CheckInOutDaoImpl_Galaxy extends BaseDao implements CheckInOutDao_G
                     }
                 }
             }
-
-            is=is_cId&&is_sumPrice;
+            is=(!is_cId)||is_sumPrice;
 
         }catch (SQLException e){
             e.printStackTrace();

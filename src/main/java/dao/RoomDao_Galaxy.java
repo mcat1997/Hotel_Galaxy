@@ -11,7 +11,7 @@ import java.util.List;
 public interface RoomDao_Galaxy {
     List<Room_Galaxy> list()throws SQLException;
     Room_Galaxy select_Galaxy(String rNum)throws SQLException;
-    void setrState(Room_Galaxy room_galaxy)throws SQLException;
+    void setrState(String rNum)throws SQLException;
     boolean isRNum(String rNum)throws SQLException;
     void add_Galaxy(Room_Galaxy room_galaxy)throws SQLException;
     void edit_Galaxy(Room_Galaxy room_galaxy)throws SQLException;

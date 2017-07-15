@@ -38,7 +38,7 @@ public class BookRoomServlet_Galaxy extends HttpServlet {
             if(roomDao_galaxy.isRNum(rNum)){
                 //获取房间信息
                 Room_Galaxy room_galaxy=roomDao_galaxy.select_Galaxy(rNum);
-                if(room_galaxy.isRstate()){
+                if(room_galaxy.isrState()){
 
                     //添加客户信息
                     Customer_Galaxy customer_galaxy = new Customer_Galaxy();
@@ -57,23 +57,17 @@ public class BookRoomServlet_Galaxy extends HttpServlet {
 
                     //添加订单信息
                     CheckInOut_Galaxy checkInOut_galaxy = new CheckInOut_Galaxy();
-                    try {
-                        checkInOut_galaxy.setDateIn(dateIn);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                        request.setAttribute("info", "时间格式错误");
-                        request.getRequestDispatcher("/bookRoom_Galaxy.jsp").forward(request, response);
-                    }
-                    checkInOut_galaxy.setCustomer_galaxy(customer_galaxy);
-                    checkInOut_galaxy.setRoom_galaxy(room_galaxy);
+                    checkInOut_galaxy.setDateIn(dateIn);
+                    checkInOut_galaxy.setcId(cId);
+                    checkInOut_galaxy.setrNum(rNum);
+                    checkInOut_galaxy.setSumPrice(0);
 
                     //存储订单信息
                     try {
                         CheckInOutDao_Galaxy checkInOutDao_galaxy=new CheckInOutDaoImpl_Galaxy();
                             if(checkInOutDao_galaxy.check_Galaxy(checkInOut_galaxy)){
-                                System.out.println(checkInOut_galaxy.getCustomer_galaxy().getcId());
                                 checkInOutDao_galaxy.add_Galaxy(checkInOut_galaxy);
-                                roomDao_galaxy.setrState(room_galaxy);
+                                roomDao_galaxy.setrState(room_galaxy.getrNum());
                                 request.setAttribute("info","订房成功");
                                 request.getRequestDispatcher("/allert.jsp").forward(request,response);
                             }else {
