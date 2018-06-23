@@ -7,13 +7,15 @@ public class Admin_Galaxy {
     private String username;
     private String password;
 
-    public Admin_Galaxy(){
+    public Admin_Galaxy() {
 
     }
-    public Admin_Galaxy(String username,String password){
-        this.username=username;
-        this.password=password;
+
+    public Admin_Galaxy(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
+
     public String getPassword() {
         return password;
     }

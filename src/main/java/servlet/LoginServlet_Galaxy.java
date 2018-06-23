@@ -22,24 +22,24 @@ public class LoginServlet_Galaxy extends HttpServlet {
 //        String rnum = req.getParameter("rnum");
 //        System.out.println(rnum);
 
-        Admin_Galaxy admin_galaxy=new Admin_Galaxy(username,password);
-        AdminDao_Galaxy adminDao_galaxy=new AdminDaoImpl_Galaxy();
+        Admin_Galaxy admin_galaxy = new Admin_Galaxy(username, password);
+        AdminDao_Galaxy adminDao_galaxy = new AdminDaoImpl_Galaxy();
         int re = 0;
         try {
             re = adminDao_galaxy.checkUser_Galaxy(admin_galaxy);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        if(re==0){
-            req.getSession(true).setAttribute("username",username);
+        if (re == 0) {
+            req.getSession(true).setAttribute("username", username);
             req.getSession().setMaxInactiveInterval(600);
-            req.getRequestDispatcher("index.jsp").forward(req,resp);
-        }else if(re==1){
-            req.setAttribute("info","没有此用户名");
-            req.getRequestDispatcher("/login_galaxy.jsp").forward(req,resp);
-        }else if(re==2){
-            req.setAttribute("info","密码错误");
-            req.getRequestDispatcher("/login_galaxy.jsp").forward(req,resp);
+            req.getRequestDispatcher("index.jsp").forward(req, resp);
+        } else if (re == 1) {
+            req.setAttribute("info", "没有此用户名");
+            req.getRequestDispatcher("/login_galaxy.jsp").forward(req, resp);
+        } else if (re == 2) {
+            req.setAttribute("info", "密码错误");
+            req.getRequestDispatcher("/login_galaxy.jsp").forward(req, resp);
         }
     }
 }

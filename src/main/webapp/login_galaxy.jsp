@@ -17,11 +17,11 @@
 
 </head>
 
-<body >
+<body style="background-color:#eee">
 <%--<form action="/login_galaxy" method="post">--%>
-    <%--<input type="text" name="username"/>--%>
-    <%--<input type="password" name="password"/>--%>
-    <%--<input type="submit"/>--%>
+<%--<input type="text" name="username"/>--%>
+<%--<input type="password" name="password"/>--%>
+<%--<input type="submit"/>--%>
 <%--</form>--%>
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
@@ -32,24 +32,25 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/login_galaxy.jsp">登录</a></li>
                 <li><a href="/room_galaxy">客房管理</a></li>
-                <li><a href="/room_add_galaxy.jsp">客房增加</a> </li>
-                <li><a href="/customer_galaxy">用户信息管理</a> </li>
-                <li><a href="/checkinout_galaxy">订单管理</a> </li>
+                <li><a href="/room_add_galaxy.jsp">客房增加</a></li>
+                <li><a href="/customer_galaxy">用户信息管理</a></li>
+                <li><a href="/checkinout_galaxy">订单管理</a></li>
             </ul>
         </div>
     </div>
 </nav>
-<div class="container" >
+<div class="container">
 
     <div style="width: 30%;margin-left: auto;margin-right: auto;margin-top: 10%">
-    <form class="form-signin" action="/login_galaxy" method="post">
-        <h2 class="form-signin-heading">${info}</h2>
-        <label for="username" class="sr-only">用户名</label>
-        <input type="text" name="username" id="username" class="form-control" placeholder="username" required autofocus>
-        <label for="password" class="sr-only">密码</label>
-        <input type="password" name="password" id="password" class="form-control" placeholder="password" required>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
-    </form>
+        <form class="form-signin" action="/login_galaxy" method="post">
+            <h2 class="form-signin-heading">${info}</h2>
+            <label for="username" class="sr-only">用户名</label>
+            <input type="text" name="username" id="username" class="form-control" placeholder="username" required
+                   autofocus>
+            <label for="password" class="sr-only">密码</label>
+            <input type="password" name="password" id="password" class="form-control" placeholder="password" required>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+        </form>
     </div>
 </div> <!-- /container -->
 <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>

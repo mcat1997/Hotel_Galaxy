@@ -2,7 +2,6 @@ package servlet;
 
 import dao.RoomDao_Galaxy;
 import dao.impl.RoomDaoImpl_Galaxy;
-import entity.Room_Galaxy;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,29 +15,27 @@ import java.sql.SQLException;
  */
 public class DelRoomServlet_Galaxy extends HttpServlet {
 
-    public DelRoomServlet_Galaxy(){super();}
+    public DelRoomServlet_Galaxy() {
+        super();
+    }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
-        if (request.getSession().getAttribute("username") == null) {
-            request.setAttribute("info", "请先登录");
-            request.getRequestDispatcher("/login_galaxy.jsp").forward(request, response);
-        } else {
-            String rNum = request.getParameter("rNum");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String rNum = request.getParameter("rNum");
 
-            RoomDao_Galaxy roomDao_galaxy = new RoomDaoImpl_Galaxy();
+        RoomDao_Galaxy roomDao_galaxy = new RoomDaoImpl_Galaxy();
 
-            try {
-                roomDao_galaxy.del_Galaxy(rNum);
-                request.setAttribute("info","删除成功");
-                request.getRequestDispatcher("/allert.jsp").forward(request,response);
+        try {
+            roomDao_galaxy.del_Galaxy(rNum);
+            request.setAttribute("info", "删除成功");
+            request.getRequestDispatcher("/allert.jsp").forward(request, response);
 
 
-            } catch (SQLException e) {
-                e.printStackTrace();
-                request.setAttribute("info","删除失败");
-                request.getRequestDispatcher("/allert.jsp").forward(request,response);
-            }
-
+        } catch (SQLException e) {
+            e.printStackTrace();
+            request.setAttribute("info", "删除失败");
+            request.getRequestDispatcher("/allert.jsp").forward(request, response);
         }
+
+
     }
 }

@@ -1,13 +1,16 @@
 package dao;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 /**
  * Created by a3899 on 2017/7/13.
  */
 public class BaseDao {
-    private String driver = "com.mysql.jdbc.Driver";
-    private String url = "jdbc:mysql://localhost:3306/Hotel_Galaxy?characterEncoding=UTF-8";
+    private String driver = "com.mysql.cj.jdbc.Driver";
+    private String url = "jdbc:mysql://127.0.0.1:3306/HotelRoomManager?useSSL=false&useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=Hongkong";
     private String user = "root";
     private String password = "385469721";
     private Connection conn = null;
@@ -17,11 +20,11 @@ public class BaseDao {
 
     public Connection getConnection() {
         try {
-        if(this.conn == null || this.conn.isClosed()) {
+            if (this.conn == null || this.conn.isClosed()) {
                 Class.forName(this.driver);
                 this.conn = DriverManager.getConnection(this.url, this.user, this.password);
 
-        }
+            }
         } catch (Exception var2) {
             var2.printStackTrace();
         }
@@ -30,7 +33,7 @@ public class BaseDao {
     }
 
     public void closeAll(Connection conn, PreparedStatement pstmt, ResultSet rs) {
-        if(rs != null) {
+        if (rs != null) {
             try {
                 rs.close();
             } catch (Exception var7) {
@@ -38,7 +41,7 @@ public class BaseDao {
             }
         }
 
-        if(pstmt != null) {
+        if (pstmt != null) {
             try {
                 pstmt.close();
             } catch (Exception var6) {
@@ -46,7 +49,7 @@ public class BaseDao {
             }
         }
 
-        if(conn != null) {
+        if (conn != null) {
             try {
                 conn.close();
             } catch (Exception var5) {

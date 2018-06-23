@@ -17,25 +17,21 @@ import java.util.List;
  */
 public class RoomServlet_Galaxy extends HttpServlet {
 
-    public RoomServlet_Galaxy(){
+    public RoomServlet_Galaxy() {
         super();
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException,IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        if (request.getSession().getAttribute("username") == null) {
-            request.setAttribute("info", "请先登录");
-            request.getRequestDispatcher("/login_galaxy.jsp").forward(request, response);
-        } else {
-            RoomDao_Galaxy roomDao_galaxy=new RoomDaoImpl_Galaxy();
-            List<Room_Galaxy> list=null;
-            try {
-                list=roomDao_galaxy.list();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            request.setAttribute("roomList",list);
-            request.getRequestDispatcher("/room_galaxy.jsp").forward(request, response);
+        RoomDao_Galaxy roomDao_galaxy = new RoomDaoImpl_Galaxy();
+        List<Room_Galaxy> list = null;
+        try {
+            list = roomDao_galaxy.list();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        request.setAttribute("roomList", list);
+        request.getRequestDispatcher("/room_galaxy.jsp").forward(request, response);
+
     }
 }
